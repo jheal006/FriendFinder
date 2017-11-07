@@ -30,8 +30,15 @@ module.exports = function(app) {
   // (ex. User fills out a reservation request... this data is then sent to the server...
   // Then the server saves the data to the tableData array)
   // ---------------------------------------------------------------------------
-  var bestMatch;
+
+
   app.post("/api/friends", function(req, res) {
+
+    var bestMatch = {
+      name: "",
+      photo: "",
+      newScore: "",
+    };
     // Note the code here. Our "server" will respond to requests and let users know if they have a table or not.
     // It will do this by sending out the value "true" have a table
     var newFriend = req.body;
@@ -55,14 +62,16 @@ module.exports = function(app) {
             console.log("FRIEND====", friendsData[i].name, "TOTAL DIFFERENCE====", totalDifference, "COMPARISON SCORE =====", comparisonScore);
             if (comparisonScore < newScore) {
               newScore = comparisonScore;
-              bestMatch = friendsData[i].name;
+              bestMatch.name = friendsData[i].name;
+              bestMatch.photo = friendsData[i].photo;
+              bestMatch.newScore = newScore;
             }
         }
         console.log("NEW SCORE RESULT====", newScore, "BEST MATCH=====", bestMatch);
         //Push newly entered Friend info to FriendsData Array
         friendsData.push(newFriend);
 
-        //Attempting to push the bestMatch info back to front end in order to properly display the modal.        
+        //Attempting to push the bestMatch info back to front end in order to properly display the modal.
         res.json(bestMatch);
 
   });

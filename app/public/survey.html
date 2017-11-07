@@ -236,7 +236,7 @@
 	    	$.post("/api/friends", userData, function(data){
 	    		// Grab the result from the AJAX post so that the best match's name and photo are displayed.
           // alert('wat!')
-	    		$("#matchName").text(userData.friend);
+	    		$("#matchName").text(userData.name);
 	    		$('#matchImg').attr("src", userData.photo);
 		    	// Show the modal with the best match
 		    	$("#resultsModal").modal('toggle');
